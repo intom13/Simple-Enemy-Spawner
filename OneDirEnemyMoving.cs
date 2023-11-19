@@ -8,7 +8,8 @@ public class OneDirEnemyMoving : MonoBehaviour
 
     private void Start()
     {
-        OneDirEnemySpawner _forwardEnemySpawner = GetComponentInParent<OneDirEnemySpawner>();
+        EnemySpawner _forwardEnemySpawner = GetComponentInParent<EnemySpawner>();
+
         _moveDirection = _forwardEnemySpawner.GetMoveDirection();
     }
 
