@@ -3,9 +3,8 @@ using DG.Tweening;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private int _moveDirection;
-
     [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private Transform _spawnerTarget;
     [SerializeField] private GameObject _enemyTemplate;
 
     private GameObject _spawnedEnemy;
@@ -18,5 +17,5 @@ public class EnemySpawner : MonoBehaviour
         _spawnedEnemy.transform.DOLocalMoveY(spawnDistanceY, mowingDuration, false);
     }
 
-    public int GetMoveDirection() {return _moveDirection;}
+    public Transform GetSpawnerTarget() { return _spawnerTarget; }
 }

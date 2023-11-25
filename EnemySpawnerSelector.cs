@@ -6,45 +6,36 @@ public class EnemySpawnerSelector : MonoBehaviour
     [SerializeField] private float _spawnerCooldown;
     [SerializeField] private float _spawnDistance;
 
-    [SerializeField] private Transform _spawnPoint_1;
     [SerializeField] private Transform _spawnPoint_2;
     [SerializeField] private Transform _spawnPoint_3;
+    [SerializeField] private Transform _spawnPoint_1;
 
     private WaitForSeconds _spawnerRechargeTime;
 
     private void Start()
     {
+        Transform[] _spawnPoints =
+        {
+            _spawnPoint_1,
+            _spawnPoint_2,
+            _spawnPoint_3,
+        };
+
         _spawnerRechargeTime = new WaitForSeconds(_spawnerCooldown);
 
-        var selectionCycle = StartCoroutine(SelectionCycle());
+        var selectionCycle = StartCoroutine(SelectionCycle(_spawnPoints));
     }
 
-    private IEnumerator SelectionCycle()
+    private IEnumerator SelectionCycle(Transform[] spawnPoints)
     {
         while (true)
         {
-            int chosenSpawnerNumber = Random.Range(1, 4);
+            int chosenSpawnerNumber = Random.Range(0, 3);
 
-            SpawnerChoice(chosenSpawnerNumber);
+            SpawnLaunch(spawnPoints[chosenSpawnerNumber], _spawnDistance);
 
             yield return _spawnerRechargeTime;
         }
-    }
-
-    private void SpawnerChoice(int chosenSpawner)
-    {
-        int firstSpawnPointNumber = 1;
-        int secondSpawnPointNumber = 2;
-        int thirdSpawnPointNumber = 3;
-
-        if (chosenSpawner == firstSpawnPointNumber)
-            SpawnLaunch(_spawnPoint_1, _spawnDistance);
-
-        if (chosenSpawner == secondSpawnPointNumber)
-            SpawnLaunch(_spawnPoint_2, _spawnDistance);
-
-        if (chosenSpawner == thirdSpawnPointNumber)
-            SpawnLaunch(_spawnPoint_3, _spawnDistance);
     }
 
     private void SpawnLaunch(Transform spawnPoint,float spawnDistance)
